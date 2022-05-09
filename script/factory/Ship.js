@@ -1,4 +1,4 @@
-class Ship {
+export default class Ship {
     constructor(name, hitBoxes) {
         this.name = name;
         this.hitBoxes = new Array(hitBoxes).fill("o");
@@ -18,5 +18,12 @@ class Ship {
             return false;
         }
     }
+    getStatus() {
+        return {
+            Name: this.name,
+            Health: this.hitBoxes
+        }
+    }
 
 }
+
