@@ -29,6 +29,9 @@ export default class Player {
                 cell.classList.add('board-cell');
                 hLine.append(cell);
 
+                cell.addEventListener('click', () => {
+                    alert(`[${this.gameBoard.indexOf(y)}][${y.indexOf(x)}]`)
+                })
             })
             board.append(hLine);
         })
