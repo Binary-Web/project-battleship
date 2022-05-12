@@ -1,8 +1,11 @@
 import Player from './Player.js'
-const playerName = document.querySelector('.inputPlayerName');
-
-playerName.addEventListener('submit', (e) => {
+document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     e.preventDefault()
     const p1 = new Player(document.querySelector('.nameText').value);
-    console.log(p1)
+    const modal = document.querySelector('.modal-bg');
+    
+    const board = p1.createBoard();
+    board.classList.add('board');
+    console.log(modal);
+    modal.appendChild(board);
 })

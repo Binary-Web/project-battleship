@@ -1,3 +1,4 @@
+
 import deployShips from "./factory/ShipDeploy.js";
 
 export default class Player {
@@ -17,6 +18,22 @@ export default class Player {
         
     }
 
+    createBoard() {
+        const board = document.createElement('div');
+        board.classList.add('board');
+
+        this.gameBoard.forEach(y => {
+            const hLine = document.createElement('div');
+            y.forEach(x => {
+                const cell = document.createElement('div');
+                cell.classList.add('board-cell');
+                hLine.append(cell);
+
+            })
+            board.append(hLine);
+        })
+        return board;
+    }
     placeShip() {
         // places ships to the board
     }
