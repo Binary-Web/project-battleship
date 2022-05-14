@@ -37,48 +37,18 @@ export default class Player {
     }
 
     placeShip() {
-        let isHorizontal = true;
+        
         const cells = document.querySelectorAll('.board-cell');
         const board = document.querySelector('.board')        
         cells.forEach((element, index) => {
             
-            element.addEventListener('mouseover', (e) => {
-                const firstCell = index;
-                let cellCount = index;
-                
-                //if the ship is horizontal
-                if(isHorizontal) {
-                    
+            element.addEventListener('mouseover',(e) => {
+                hoverEffect(cells, index, e.target.dataset.counter, false)
+            })
 
-                    for(let x = 1; x <= 3; x++) {
-                        let tempNum = cellCount % 10;
-                        console.log(cellCount)
-                        cells[cellCount].classList.add('cellhover');
-
-                        //this condition to prevent the ship from overlapping  the board
-                        if(10-3 >= e.target.dataset.counter) {
-                            cellCount++;
-                        } else {
-                            hoverRemover()
-                        }
-                    }
-
-                //if the ship is vertical
-                } else {
-
-                    for(let x = 0; x <= 4; x++) {
-                        //TRY IF THE SHIP IS NOT OVERLAPPING
-                        try {
-                            cells[cellCount].classList.add('cellhover');
-                            cellCount = cellCount + 10;
-                        //CATCH IF THE SHIP OVERLAPPS
-                        } catch(err) {
-                            hoverRemover()
-                        }
-
-                    }
-                }
-            });
+            element.addEventListener('click', () => {
+                console.log(status.getStatus())
+            })
         });
 
         board.addEventListener('mouseout', () => {
@@ -101,4 +71,59 @@ function hoverRemover() {
     cells.forEach(element => {
         element.classList.remove('cellhover')
     })
+}
+
+function hoverEffect(cells, indexNum, datasetCounter, isHorizontal) {
+    let cellCount = indexNum;
+    //if the ship is horizontal
+    if(isHorizontal) {
+        for(let x = 1; x <= 3; x++) {
+            console.log(cellCount)
+            cells[cellCount].classList.add('cellhover');
+
+            //this condition to prevent the ship from overlapping  the board
+            if(10-3 >= datasetCounter) {
+                
+                status.enableStatus();
+                cellCount++;
+            } else {
+                status.disableStatus();
+                hoverRemover()
+            }
+        }
+
+    //if the ship is vertical
+    } else {
+
+        for(let x = 0; x <= 4; x++) {
+            //TRY IF THE SHIP IS NOT OVERLAPPING
+            try {
+                status.enableStatus();
+                cells[cellCount].classList.add('cellhover');
+                cellCount = cellCount + 10;
+            //CATCH IF THE SHIP OVERLAPPS
+            } catch(err) {
+                status.disableStatus();
+                hoverRemover();
+            }
+
+        }
+    }
+}
+
+
+const status = {
+    clickStatus: true,
+
+    disableStatus() {
+        console.log("hello")
+        this.clickStatus = false;
+    },
+    enableStatus() {
+        this.clickStatus = true;
+    },
+
+    getStatus() {
+        return this.clickStatus;
+    } 
 }
