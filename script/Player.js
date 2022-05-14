@@ -42,18 +42,21 @@ export default class Player {
         const board = document.querySelector('.board')        
         cells.forEach((element, index) => {
             
-            element.addEventListener('mouseover', () => {
+            element.addEventListener('mouseover', (e) => {
                 const firstCell = index;
                 let cellCount = index;
+                
                 //if the ship is horizontal
                 if(isHorizontal) {
+                    
+
                     for(let x = 1; x <= 3; x++) {
                         let tempNum = cellCount % 10;
                         console.log(cellCount)
                         cells[cellCount].classList.add('cellhover');
 
                         //this condition to prevent the ship from overlapping  the board
-                        if(firstCell <= tempNum) {
+                        if(10-3 >= e.target.dataset.counter) {
                             cellCount++;
                         } else {
                             hoverRemover()
@@ -62,9 +65,16 @@ export default class Player {
 
                 //if the ship is vertical
                 } else {
-                    for(let x = 0; x <= 5; x++) {
-                        cells[cellCount].classList.add('cellhover');
-                        cellCount = cellCount + 10;
+
+                    for(let x = 0; x <= 4; x++) {
+                        //TRY IF THE SHIP IS NOT OVERLAPPING
+                        try {
+                            cells[cellCount].classList.add('cellhover');
+                            cellCount = cellCount + 10;
+                        //CATCH IF THE SHIP OVERLAPPS
+                        } catch(err) {
+                            hoverRemover()
+                        }
 
                     }
                 }
