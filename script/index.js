@@ -4,10 +4,7 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     const p1 = new Player(document.querySelector('.nameText').value);
     const modal = document.querySelector('.modal-bg');
     
-    const board = p1.createBoard();
-    board.classList.add('board');
-    console.log(board)
-    modal.appendChild(board);
+    modal.appendChild(p1.board);
     
     p1.placeShip()
 })
