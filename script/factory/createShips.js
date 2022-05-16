@@ -1,4 +1,4 @@
-import Ship from '../factory/Ship.js'
+import Ship from './Ship.js'
 const fiveShips = [];
 const ships = [
     {

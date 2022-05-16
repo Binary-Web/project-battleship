@@ -1,5 +1,5 @@
 
-import deployShips from "./factory/ShipDeploy.js";
+import createShips from "./factory/createShips.js";
 
 const ship = {
     name: "test",
@@ -8,7 +8,7 @@ const ship = {
 export default class Player {
     constructor(name) {
         this.name = name;
-        this.ships = deployShips();
+        this.ships = createShips();
         this.board = this.createBoard();
     }
 
