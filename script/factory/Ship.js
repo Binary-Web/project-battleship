@@ -3,6 +3,7 @@ export default class Ship {
         this.name = name;
         this.hitBoxes = new Array(hitBoxes).fill("o");
         this.isHorizontal = true;
+        this.location = [];
     }
 
     hit(index) {

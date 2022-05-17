@@ -1,10 +1,6 @@
 
 import createShips from "./factory/createShips.js";
 
-const ship = {
-    name: "test",
-    hitBoxes: 4,
-}
 export default class Player {
     constructor(name) {
         this.name = name;
@@ -38,19 +34,33 @@ export default class Player {
         return board;
     }
 
-    placeShip() {
-        console.log(this.ships)
+    deployShips() {
+        let x;
+        for(x = 0; x <=4; x++) {
+            console.log(x)
+            this.ships[x].location = this.placeShip(this.ships[x]);
+            if(this.ships.placed) {
+                continue;
+            }
+            break;
+        }
+        // this.ships.forEach(ship => {
+        //     ship.location = this.placeShip(ship)
+        // })
+    }
+
+    placeShip(ship) {
+        console.log(ship)
         const cells = document.querySelectorAll('.board-cell');
         const board = document.querySelector('.board');
         cells.forEach((element, index) => {
             
-                element.addEventListener('mouseover',(e) => {
-                    this.ships.forEach(ship => {
-                        hoverEffect(cells, index, e.target.dataset.counter, false);
-                    })
+                element.addEventListener('mouseover', (e) => {
+                        hoverEffect(ship.hitBoxes.length, cells, index, e.target.dataset.counter, ship.isHorizontal);
                 })
                 
-                element.addEventListener('click', () => {
+                element.addEventListener('click', (e) => {
+                    e.preventDefault()
                     if(status.getStatus()) {
                         console.log(shipLocation.getCoordinates())
                     }
@@ -83,17 +93,17 @@ function hoverRemover() {
     })
 }
 
-function hoverEffect(cells, indexNum, datasetCounter, isHorizontal) {
+function hoverEffect(hitBoxesLength, cells, indexNum, datasetCounter, isHorizontal) {
     let cellCount = indexNum;
     shipLocation.clearCoordinates();
     //if the ship is horizontal
     if(isHorizontal) {
-        for(let x = 1; x <= 3; x++) {
+        for(let x = 1; x <= hitBoxesLength; x++) {
             shipLocation.shipCoordinates.push(cellCount);
             cells[cellCount].classList.add('cellhover');
 
             //this condition to prevent the ship from overlapping  the board
-            if(10-3 >= datasetCounter) {
+            if(10-hitBoxesLength >= datasetCounter) {
                 
                 status.enableStatus();
                 cellCount++;
@@ -105,7 +115,7 @@ function hoverEffect(cells, indexNum, datasetCounter, isHorizontal) {
 
     //if the ship is vertical
     } else {
-        for(let x = 0; x <= 4; x++) {
+        for(let x = 0; x <= hitBoxesLength; x++) {
             //TRY IF THE SHIP IS NOT OVERLAPPING
             try {
                 shipLocation.shipCoordinates.push(cellCount);

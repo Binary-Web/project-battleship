@@ -6,5 +6,5 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     
     modal.appendChild(p1.board);
     
-    p1.placeShip()
+    p1.deployShips()
 })
