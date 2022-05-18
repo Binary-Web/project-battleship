@@ -38,18 +38,19 @@ export default class Player {
         const shipSelection = document.createElement('div');
         shipSelection.classList.add('control-panel');
 
-            for(const ship in this.ships) {
+            this.ships.forEach(ship => {
                 console.log(ship)
                 const shipName = document.createElement('p');
                 shipName.classList.add('ship-name')
-                shipName.innerHTML = this.ships[ship].name;
+                shipName.innerHTML = ship.name;
                 shipSelection.append(shipName)
                 shipName.addEventListener('click', (e) => {
-                    this.placeShip(e, this.ships[ship])
+                    shipOnHold.setProperties(ship.name, ship.hitBoxes.length, ship.isHorizontal)
+                    this.placeShip(e)
                 })
+            })
                 
-                shipName.removeEventListener('click', () => {})
-            }
+        
 
         return shipSelection
     }
@@ -76,28 +77,25 @@ export default class Player {
 
     // }
 
-    placeShip(e, ship) {
-        let hitBoxesLength = 0;
-        hitBoxesLength = ship.hitBoxes.length
+    placeShip(e) {
         const ships = document.querySelectorAll('.ship-name');
         ships.forEach(ship => {
             ship.classList.remove('active-ship')
         })
         const activeShip = e.target;
         activeShip.classList.add('active-ship')
-        console.log(ship)
             const cells = document.querySelectorAll('.board-cell');
             const board = document.querySelector('.board');
             cells.forEach((element, index) => {
 
                     element.addEventListener('mouseover', (el) => {
-                            hoverEffect(ship.hitBoxes.length, cells, index, el.target.dataset.counter, ship.isHorizontal);
+                            hoverEffect(shipOnHold.shipLength, cells, index, el.target.dataset.counter, shipOnHold.shipHorizontal);
                     })
                     element.addEventListener('click', () => {
                         shipOnHold.clear();
                         activeShip.classList.remove('active-ship');
                         activeShip.classList.add('ship-deployed');
-                        ship.location = shipLocation.getCoordinates();
+                        shipOnHold.setLocation(shipLocation.getCoordinates());
                     })
     
     
@@ -172,11 +170,16 @@ const shipOnHold = {
     shipName: "",
     shipLength: 0,
     shipHorizontal: true,
+    location: [],
 
     setProperties(name, length, isHorizontal) {
         this.shipName = name;
         this.shipLength = length;
         this.shipHorizontal = isHorizontal
+    },
+
+    setLocation(loc) {
+        this.location = loc
     },
 
     clear() {
