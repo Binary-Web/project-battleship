@@ -34,45 +34,80 @@ export default class Player {
         return board;
     }
 
-    deployShips() {
-        let x;
-        for(x = 0; x <=4; x++) {
-            console.log(x)
-            this.ships[x].location = this.placeShip(this.ships[x]);
-            if(this.ships.placed) {
-                continue;
-            }
-            break;
-        }
-        // this.ships.forEach(ship => {
-        //     ship.location = this.placeShip(ship)
-        // })
-    }
+    createShipSelection() {
+        const shipSelection = document.createElement('div');
+        shipSelection.classList.add('control-panel');
 
-    placeShip(ship) {
-        console.log(ship)
-        const cells = document.querySelectorAll('.board-cell');
-        const board = document.querySelector('.board');
-        cells.forEach((element, index) => {
-            
-                element.addEventListener('mouseover', (e) => {
-                        hoverEffect(ship.hitBoxes.length, cells, index, e.target.dataset.counter, ship.isHorizontal);
+            for(const ship in this.ships) {
+                console.log(ship)
+                const shipName = document.createElement('p');
+                shipName.classList.add('ship-name')
+                shipName.innerHTML = this.ships[ship].name;
+                shipSelection.append(shipName)
+                shipName.addEventListener('click', (e) => {
+                    this.placeShip(e, this.ships[ship])
                 })
                 
-                element.addEventListener('click', (e) => {
-                    e.preventDefault()
-                    if(status.getStatus()) {
-                        console.log(shipLocation.getCoordinates())
-                    }
-                })
+                shipName.removeEventListener('click', () => {})
+            }
+
+        return shipSelection
+    }
+
+    // deployShips() {
+
+    //         while(x <= 4) {
+    //             console.log(x)
+    //             this.ships[x].location = this.placeShip(this.ships[x]);
+    //             if(this.ships[x].location) {
+    //                 console.log(this.ships[x].location)
+    //                 x++;
+    //                 continue;
+    //             } else {
+    //                 console.log("madi")
+    //             }
+    //             break;
+    //         }
+    //     this.ships.forEach(async ship => {
+    //         ship.location = await this.placeShip(ship)
+    //         console.log(ship)
+    //     })
 
 
-        });
+    // }
 
-        board.addEventListener('mouseout', () => {
-            hoverRemover();
+    placeShip(e, ship) {
+        let hitBoxesLength = 0;
+        hitBoxesLength = ship.hitBoxes.length
+        const ships = document.querySelectorAll('.ship-name');
+        ships.forEach(ship => {
+            ship.classList.remove('active-ship')
         })
+        const activeShip = e.target;
+        activeShip.classList.add('active-ship')
+        console.log(ship)
+            const cells = document.querySelectorAll('.board-cell');
+            const board = document.querySelector('.board');
+            cells.forEach((element, index) => {
 
+                    element.addEventListener('mouseover', (el) => {
+                            hoverEffect(ship.hitBoxes.length, cells, index, el.target.dataset.counter, ship.isHorizontal);
+                    })
+                    element.addEventListener('click', () => {
+                        shipOnHold.clear();
+                        activeShip.classList.remove('active-ship');
+                        activeShip.classList.add('ship-deployed');
+                        ship.location = shipLocation.getCoordinates();
+                    })
+    
+    
+            });
+    
+            board.addEventListener('mouseout', () => {
+                hoverRemover();
+            })
+    
+        
 
     }
 
@@ -94,6 +129,7 @@ function hoverRemover() {
 }
 
 function hoverEffect(hitBoxesLength, cells, indexNum, datasetCounter, isHorizontal) {
+    console.log(hitBoxesLength)
     let cellCount = indexNum;
     shipLocation.clearCoordinates();
     //if the ship is horizontal
@@ -132,6 +168,26 @@ function hoverEffect(hitBoxesLength, cells, indexNum, datasetCounter, isHorizont
     }
 }
 
+const shipOnHold = {
+    shipName: "",
+    shipLength: 0,
+    shipHorizontal: true,
+
+    setProperties(name, length, isHorizontal) {
+        this.shipName = name;
+        this.shipLength = length;
+        this.shipHorizontal = isHorizontal
+    },
+
+    clear() {
+        this.shipName = "";
+        this.shipLength = 0;
+    },
+
+    rotate() {
+        this.shipHorizontal = !this.shipHorizontal
+    }
+}
 
 const status = {
     clickStatus: true,

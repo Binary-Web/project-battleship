@@ -43,3 +43,17 @@ body {
 .cellhover {
     background-color: blue;
 }
+
+.control-panel {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+.active-ship {
+    color: red;
+}
+
+.ship-deployed {
+    color: #818181;
+    pointer-events: none;
+}
