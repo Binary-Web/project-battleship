@@ -8,6 +8,7 @@ export default class Ship {
 
     hit(index) {
         this.hitBoxes[index] = "x";
+        this.isSunk();
     }
 
     switchPosition() {
@@ -20,10 +21,17 @@ export default class Ship {
         }
     }
     getStatus() {
+        
         return {
             Name: this.name,
-            Health: this.hitBoxes
+            Health: this.hitBoxes,
+            Position: this.isHorizontal ? "Horizontal" : "Vertical",
+            Location: this.location
         }
+    }
+
+    placeShip(loc) {
+        this.location = loc;
     }
 
 }

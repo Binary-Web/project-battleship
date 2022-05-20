@@ -23,7 +23,7 @@ const ships = [
     },
 ]
 
-export default function deployShips() {
+export default function createShips() {
     ships.forEach(element => {
         fiveShips.push(new Ship(element.name, element.hitBoxes));
     })
