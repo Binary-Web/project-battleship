@@ -7,3 +7,25 @@
 body {
     background-color: #000000;
 }
+
+
+/* GAME BOARD =================================================== */
+.board-cell {
+    height: 40px;
+    width: 40px;
+    border: 1px solid white
+}
+
+.horizontal-line {
+    display: flex;
+}
+
+.hover-cell {
+    background-color: #8d8d8d;
+}
+
+
+/* SHIP SELECTION =================================================*/
+.ship-name {
+    color: white
+}
