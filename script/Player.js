@@ -17,10 +17,14 @@ export default class Player {
             const shipName = document.createElement('p');
             shipName.classList.add('ship-name');
             shipName.innerText = ship.name;
-            shipName.addEventListener('click', (e) => {
-                this.selectShip(e, index)
-            })
+            shipName.dataset.indexNum = index;
             selectionContainer.append(shipName);
+        })
+
+        const ships = document.querySelectorAll('.ship-name');
+
+        ships[0].addEventListener('click', (e) => {
+            console.log(e.target.dataset.indexNum);
         })
 
         return selectionContainer;
