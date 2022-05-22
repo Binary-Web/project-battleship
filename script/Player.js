@@ -5,9 +5,8 @@ import gameBoard from './factory/gameBoard.js'
 export default class Player {
     constructor(name) {
         this.name = name;
-        this.ships = createShips();
+        this.ships = [];
         this.board = gameBoard();
-        this.coordinates = []
     }
 
     shipSelection() {
@@ -29,6 +28,7 @@ export default class Player {
         while(this.coordinates.length <= 5) {
             this.coordinates.push(this.selectShip)
         }
+
 
         return selectionContainer;
     }
