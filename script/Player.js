@@ -7,56 +7,117 @@ export default class Player {
         this.name = name;
         this.ships = createShips();
         this.board = gameBoard();
-        this.selectedShip = "";
-        this.hoverCells = []
+        this.coordinates = []
     }
 
     shipSelection() {
-        const selectionContainer = document.createElement('div'); 
-        this.ships.forEach((ship, index) => {
+        
+        const selectionContainer = document.createElement('div');
+        selectionContainer.classList.add('selection-container')
+        this.ships.forEach(async (ship, index) => {
             const shipName = document.createElement('p');
+            shipName.dataset.index = index;
             shipName.classList.add('ship-name');
             shipName.innerText = ship.name;
-            shipName.dataset.indexNum = index;
             selectionContainer.append(shipName);
         })
 
-        const ships = document.querySelectorAll('.ship-name');
-
-        ships[0].addEventListener('click', (e) => {
-            console.log(e.target.dataset.indexNum);
+        selectionContainer.addEventListener('click', (e) => {
+            this.getClick(e)
         })
+
+        while(this.coordinates.length <= 5) {
+            this.coordinates.push(this.selectShip)
+        }
 
         return selectionContainer;
     }
 
-    selectShip(shipName, index) {
-        this.selectedShip = shipName.target.innerText;
-        this.selectedShip = this.ships[index];
-        const cells = document.querySelectorAll('.board-cell');
+    
 
-        cells.forEach((cell, cellNum) => {
-            cell.addEventListener('mouseover', () => {
-                this.hoverCells = []
-                if(this.selectedShip.isHorizontal) {
-                    for(let x = 0; x < this.selectedShip.hitBoxes.length; x++) {
-                        cells[cellNum + x].classList.add('hover-cell');
-                        this.hoverCells.push(cellNum + x);
-                    }
-                }
-            })
+    getClick(e) {
+        const selectionContainer = document.querySelector('.selection-container')
 
-            cell.addEventListener('click', () => {
-                this.ships[index].location = this.hoverCells;
-                
-                console.log(this.ships)
-            })
-
-            cell.addEventListener('mouseout', () => {
-                hoverEffectRemover(cells);
-            })
-        })
+        console.log(e.target.parentNode)
+        const index = e.target.dataset.index
+        console.log(e.target.innerText)
+        if(index) {
+            switch(e.target.innerText) {
+                case 'Carrier':
+                    this.ships[index].location = this.selectShip(index)
+                    break;
+                case 'Battleship':
+                    this.ships[index].location = this.selectShip(index)
+                    break;
+                case 'Cruiser':
+                    this.ships[index].location = this.selectShip(index)
+                    break;
+                case 'Submarine':
+                    this.ships[index].location = this.selectShip(index)
+                    break;
+                case 'Destroyer':
+                    this.ships[index].location = this.selectShip(index)
+                    break;
+            }
+        }
+        
     }
+
+    // selectShip(index) {
+    //     const cells = document.querySelectorAll('.board-cell');
+    //     console.log(this.ships[index].isHorizontal)
+    //     let hoverCells = []
+    //     cells.forEach((cell, cellNum) => {
+    //         cell.addEventListener('mouseover', () => {
+    //             hoverCells = []
+    //             if(this.ships[index].isHorizontal) {
+    //                 for(let x = 0; x < this.ships[index].hitBoxes.length; x++) {
+    //                     cells[cellNum + x].classList.add('hover-cell');
+    //                     hoverCells.push(cellNum + x);
+    //                 }
+    //             }
+    //         })
+
+    //         cell.addEventListener('click', () => {
+    //             this.ships[index].location = hoverCells;
+    //         })
+
+    //         cell.addEventListener('mouseout', () => {
+    //             hoverEffectRemover(cells);
+    //         })
+    //     })
+    //     console.log(this.ships)
+    // }
+
+    selectShip() {
+        return new Promise((resolve, reject) => {
+            const cells = document.querySelectorAll('.board-cell');
+            let hoverCells = []
+            cells.forEach((cell, cellNum) => {
+                cell.addEventListener('mouseover', () => {
+                    hoverCells = []
+                    if(true) {
+                        for(let x = 0; x < 4; x++) {
+                            cells[cellNum + x].classList.add('hover-cell');
+                            hoverCells.push(cellNum + x);
+                        }
+                    }
+                })
+    
+                cell.addEventListener('click', () => {
+                        resolve(hoverCells)
+                })
+    
+                cell.addEventListener('mouseout', () => {
+                    hoverEffectRemover(cells);
+                })
+            })
+            console.log(this.ships)
+        })
+        
+    }
+
+    
 }
 
 function hoverEffectRemover(cells) {
