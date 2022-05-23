@@ -31,30 +31,31 @@ function placeShip(player, isHorizontal) {
     const counter = player.ships.length;
     
     if(checkCellIfAvaible(player).length == 0) {
-        switch(counter) {
-            case 0:
-                player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
-                break;
-            case 1:
-                player.ships.push(new Ship('Battleship', 4, isHorizontal, loc.getLoc()))
-                break;
-            case 2:
-                player.ships.push(new Ship('Cruiser', 3, isHorizontal, loc.getLoc()))
-                break;
-            case 3:
-                player.ships.push(new Ship('Submarine', 3, isHorizontal, loc.getLoc()))
-                break;
-            case 4:
-                player.ships.push(new Ship('Destroyer', 5, isHorizontal, loc.getLoc()))
-                break;    
+        if(counter <= 4) {
+            console.log('mayat')
+            switch(counter) {
+                case 0:
+                    player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
+                    break;
+                case 1:
+                    player.ships.push(new Ship('Battleship', 4, isHorizontal, loc.getLoc()))
+                    break;
+                case 2:
+                    player.ships.push(new Ship('Cruiser', 3, isHorizontal, loc.getLoc()))
+                    break;
+                case 3:
+                    player.ships.push(new Ship('Submarine', 3, isHorizontal, loc.getLoc()))
+                    break;
+                case 4:
+                    player.ships.push(new Ship('Destroyer', 5, isHorizontal, loc.getLoc()))
+                    break;    
+            }
+        } else {
+            console.log(player.ships)
         }
     } else {
         console.log('false')
     }
-        
-    
-    
-    console.log(player.ships)
     updateBoard(player)
 
 }
