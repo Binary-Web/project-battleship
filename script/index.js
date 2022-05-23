@@ -30,24 +30,30 @@ function deployingShips(player) {
 function placeShip(player, isHorizontal) {
     const counter = player.ships.length;
     
-    switch(counter) {
-        case 0:
-            player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
-            break;
-        case 1:
-            player.ships.push(new Ship('Battleship', 4, isHorizontal, loc.getLoc()))
-            break;
-        case 2:
-            player.ships.push(new Ship('Cruiser', 3, isHorizontal, loc.getLoc()))
-            break;
-        case 3:
-            player.ships.push(new Ship('Submarine', 3, isHorizontal, loc.getLoc()))
-            break;
-        case 4:
-            player.ships.push(new Ship('Destroyer', 5, isHorizontal, loc.getLoc()))
-            break;    
+    if(checkCellIfAvaible(player).length == 0) {
+        switch(counter) {
+            case 0:
+                player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
+                break;
+            case 1:
+                player.ships.push(new Ship('Battleship', 4, isHorizontal, loc.getLoc()))
+                break;
+            case 2:
+                player.ships.push(new Ship('Cruiser', 3, isHorizontal, loc.getLoc()))
+                break;
+            case 3:
+                player.ships.push(new Ship('Submarine', 3, isHorizontal, loc.getLoc()))
+                break;
+            case 4:
+                player.ships.push(new Ship('Destroyer', 5, isHorizontal, loc.getLoc()))
+                break;    
+        }
+    } else {
+        console.log('false')
     }
-
+        
+    
+    
     console.log(player.ships)
     updateBoard(player)
 
@@ -105,16 +111,27 @@ function mouseoverHandle(e, player, isHorizontal) {
     }
 }
 
-function checkCellIfAvaible() {
+function checkCellIfAvaible(player) {
+    const allCoord = [];
+    let test = [];
+    player.ships.forEach(ship => {
+        ship.location.forEach(loc => allCoord.push(loc))
+    }) 
 
+    loc.currentLoc.forEach(loc => {
+        allCoord.forEach(x => {
+            if(loc == x) {
+                test.push(loc)
+            }
+        })
+    })
+    return test
 }
 
 function updateBoard(player) {
     const cells = document.querySelectorAll('.board-cell');
     player.ships.forEach(ship => {
-            console.log('mayat')
             ship.location.forEach(cellNum => {
-                console.log(cellNum)
                 cells[cellNum].classList.add('ship-cell')
             })
     })
