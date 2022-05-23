@@ -12,12 +12,19 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
 
 function deployingShips(player) {
     let isHorizontal = false;
+    const btnRorate = document.querySelector('.btn-rotate-ship')
     player.board.addEventListener('mouseover', (e) => {
         mouseoverHandle(e, player, isHorizontal)
+    })
+    player.board.addEventListener('mouseout', (e) => {
+        hoverEffectRemover()
+
     })
     player.board.addEventListener('click', (e) => {
        placeShip(player, isHorizontal);
     })
+
+    btnRorate.addEventListener('click', () => isHorizontal = !isHorizontal)
 }
 
 function placeShip(player, isHorizontal) {
@@ -73,10 +80,18 @@ function mouseoverHandle(e, player, isHorizontal) {
 
     
     let num = parseInt(e.target.dataset.cellnumber);
+    let overFlowNum = 10 - length;
+    let hCellNum = num % 10;
     for(let x = 0; x < length; x++) {
+        
         if(isHorizontal) {
-            cells[num++].classList.add('hover-cell');
-            loc.currentLoc.push(num);
+            if(hCellNum <= overFlowNum) {
+                loc.currentLoc.push(num);
+                cells[num++].classList.add('hover-cell');
+            } else {
+                console.log('madi')
+            }
+            
         } else {
             try {
                 cells[num].classList.add('hover-cell');
@@ -88,6 +103,10 @@ function mouseoverHandle(e, player, isHorizontal) {
             }
         }
     }
+}
+
+function checkCellIfAvaible() {
+
 }
 
 function updateBoard(player) {
