@@ -22,6 +22,7 @@ function deployingShips(player) {
 
 function placeShip(player, isHorizontal) {
     const counter = player.ships.length;
+    
     switch(counter) {
         case 0:
             player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
@@ -41,6 +42,8 @@ function placeShip(player, isHorizontal) {
     }
 
     console.log(player.ships)
+    updateBoard(player)
+
 }
 
 function mouseoverHandle(e, player, isHorizontal) {
@@ -87,6 +90,16 @@ function mouseoverHandle(e, player, isHorizontal) {
     }
 }
 
+function updateBoard(player) {
+    const cells = document.querySelectorAll('.board-cell');
+    player.ships.forEach(ship => {
+            console.log('mayat')
+            ship.location.forEach(cellNum => {
+                console.log(cellNum)
+                cells[cellNum].classList.add('ship-cell')
+            })
+    })
+}
 
 
 function hoverEffectRemover() {
@@ -108,3 +121,4 @@ const loc ={
     },
 
 }
+

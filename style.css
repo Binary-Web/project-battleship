@@ -24,6 +24,9 @@ body {
     background-color: #8d8d8d;
 }
 
+.ship-cell {
+    background-color: blue;
+}
 
 /* SHIP SELECTION =================================================*/
 .ship-name {

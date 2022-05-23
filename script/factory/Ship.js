@@ -1,5 +1,5 @@
 export default class Ship {
-    constructor(name, hitBoxes, loc, isHorizontal) {
+    constructor(name, hitBoxes, isHorizontal, loc) {
         this.name = name;
         this.hitBoxes = new Array(hitBoxes).fill("o");
         this.location = loc;
