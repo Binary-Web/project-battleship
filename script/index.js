@@ -1,13 +1,19 @@
 import Player from './Player.js'
 import Ship from './/factory/Ship.js';
+import AI from './AIPlayer.js'
 document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     e.preventDefault();
-    const container = document.querySelector('.modal-bg')
-    const playerName = document.querySelector('.nameText').value
+    const container = document.querySelector('.modal-bg');
+    const playerName = document.querySelector('.nameText').value;
     const player = new Player(playerName);
-    container.append(player.board)
-    deployingShips(player)
-    
+    container.append(player.board);
+    deployingShips(player);
+
+    const ai = new AI();
+
+    ai.createShips();
+    console.log(ai.getShips())
+
 })
 
 function deployingShips(player) {
@@ -16,10 +22,7 @@ function deployingShips(player) {
     player.board.addEventListener('mouseover', (e) => {
         mouseoverHandle(e, player, isHorizontal)
     })
-    player.board.addEventListener('mouseout', (e) => {
-        hoverEffectRemover()
-
-    })
+    player.board.addEventListener('mouseout', hoverEffectRemover)
     player.board.addEventListener('click', (e) => {
        placeShip(player, isHorizontal);
     })
@@ -32,7 +35,6 @@ function placeShip(player, isHorizontal) {
     
     if(checkCellIfAvaible(player).length == 0) {
         if(counter <= 4) {
-            console.log('mayat')
             switch(counter) {
                 case 0:
                     player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
@@ -50,14 +52,11 @@ function placeShip(player, isHorizontal) {
                     player.ships.push(new Ship('Destroyer', 5, isHorizontal, loc.getLoc()))
                     break;    
             }
-        } else {
-            console.log(player.ships)
         }
     } else {
-        console.log('false')
+        console.log('cell is occupied by another ship')
     }
     updateBoard(player)
-
 }
 
 function mouseoverHandle(e, player, isHorizontal) {
@@ -102,7 +101,6 @@ function mouseoverHandle(e, player, isHorizontal) {
         } else {
             try {
                 cells[num].classList.add('hover-cell');
-                //loc.push(num)
                 loc.currentLoc.push(num);
                 num+=10;
             } catch(err) {
@@ -136,7 +134,13 @@ function updateBoard(player) {
                 cells[cellNum].classList.add('ship-cell')
             })
     })
+    if(player.ships.length === 5) {
+        player.ships.forEach(ship => {
+            console.log(ship.location)
+        })
+    }
 }
+
 
 
 function hoverEffectRemover() {
