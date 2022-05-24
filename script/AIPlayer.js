@@ -8,6 +8,7 @@ export default class AI {
     }
 
     createShips() {
+        
         for(let x = 0; x <= 4; x++) {
             let bool = Math.random() < 0.5;
             switch(x) {
@@ -32,50 +33,57 @@ export default class AI {
     }
 
     placeRandom(shipLength, bool) {
-        let temp = Math.floor(Math.random()*99) + 1;
+        const healthBarLength = shipLength;
+        const isHorizontal = bool;
 
-        //21
-        //getting the 2nd digit of the random first location---- ex. getting 1 from 21
-        let x = temp % 10;
-
-        //getting the 2nd digit of the random last location----- ex. getting 5 from 25 
-        let a = (temp + shipLength - 1) % 10;
-
-        let z = (temp + (shipLength * 10)) - 10;
-
-        if(bool) {
-            if(x > a) {
-                //call function again if it overflows
-                this.placeRandom(shipLength, bool);
-            } else {
-                console.log('it overflows horizontally')
-            }
-        } else {
-            if(z > 99) {
-                //call function again if it overflows
-                this.placeRandom(shipLength, bool);
-            } else {
-                console.log('it overflows vertically')
-            }
-        }
-
-        let tempLoc = []
-        for(let x = 1; x <= shipLength; x++) {    
+        start: while(true) {
+            let temp = Math.floor(Math.random()*99) + 1;
+        
+            let tempLoc = []
+    
+            //21
+            //getting the 2nd digit of the random first location---- ex. getting 1 from 21
+            let x = temp % 10;
+    
+            //getting the 2nd digit of the random last location----- ex. getting 5 from 25 
+            let a = (temp + shipLength - 1) % 10;
+    
+            let z = (temp + (shipLength * 10)) - 10;
+    
             if(bool) {
-                tempLoc.push(temp);
-                temp++;
+                if(x > a) {
+                    //call function again if it overflows
+                    continue start
+                }
             } else {
-                tempLoc.push(temp);
-                temp += 10;
+                console.log(`${z} > 99`)
+                if(z > 99) {
+                    //call function again if it overflows
+                    
+                    console.log('try again')
+                    continue start
+                }
+            }
+    
+            for(let x = 1; x <= shipLength; x++) {    
+                if(bool) {
+                    tempLoc.push(temp);
+                    temp++;
+                } else {
+                    tempLoc.push(temp);
+                    temp += 10;
+                }
+            }
+    
+            //if checkLoc returns an array with value
+            if(this.checkLoc(tempLoc).length > 1) {
+                continue start
+            } else {
+                return tempLoc;
+                break;
             }
         }
-
-        //if checkLoc returns an array with value
-        if(this.checkLoc(tempLoc).length > 1) {
-            this.placeRandom(shipLength, bool);
-        } else {
-            return tempLoc
-        }
+        
     }
 
     checkLoc(loc) {
@@ -83,10 +91,9 @@ export default class AI {
         let test = [];
         try {
             const allCoord = [];
-            console.log(this.ships)
             this.ships.forEach(ship => {
                 //putting all taken cells to 'allCoord' var
-                ship.location.forEach(loc => allCoord.push(loc))
+                ship.location.forEach(coord => allCoord.push(coord))
             }) 
         
             //check if the random location is valid
@@ -100,8 +107,9 @@ export default class AI {
             })
             return test
         } catch (err) {
+            console.log(loc)
             console.log(err)
-            test.push('asd')
+            test.push(loc)
             return test
         }
         
