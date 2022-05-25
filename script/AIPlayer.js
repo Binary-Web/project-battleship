@@ -89,29 +89,22 @@ export default class AI {
     checkLoc(loc) {
         
         let test = [];
-        try {
-            const allCoord = [];
-            this.ships.forEach(ship => {
-                //putting all taken cells to 'allCoord' var
-                ship.location.forEach(coord => allCoord.push(coord))
-            }) 
-        
-            //check if the random location is valid
-            loc.forEach(a => {
-                allCoord.forEach(x => {
-                    if(a == x) {
-                        //if test has a value it is NOT valid
-                        test.push(a)
-                    }
-                })
+        const allCoord = [];
+        this.ships.forEach(ship => {
+            //putting all taken cells to 'allCoord' var
+            ship.location.forEach(coord => allCoord.push(coord))
+        }) 
+    
+        //check if the random location is valid
+        loc.forEach(a => {
+            allCoord.forEach(x => {
+                if(a == x) {
+                    //if test has a value it is NOT valid
+                    test.push(a)
+                }
             })
-            return test
-        } catch (err) {
-            console.log(loc)
-            console.log(err)
-            test.push(loc)
-            return test
-        }
+        })
+        return test
         
     }
 
@@ -119,10 +112,8 @@ export default class AI {
         let a = []
 
         this.ships.forEach(ship => {
-            a.push(ship.location)
+            console.log(ship.location)
         })
-
-        return a
     }
 }
 

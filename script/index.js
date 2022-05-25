@@ -12,7 +12,7 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     const ai = new AI();
 
     ai.createShips();
-    console.log(ai.getShips())
+    ai.getShips()
 
 })
 
