@@ -1,6 +1,10 @@
 import Player from './Player.js'
 import Ship from './/factory/Ship.js';
-import AI from './AIPlayer.js'
+import AI from './AIPlayer.js';
+import Game from './factory/Game.js'
+
+
+const ai = new AI();
 document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     e.preventDefault();
     const container = document.querySelector('.modal-bg');
@@ -9,7 +13,6 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     container.append(player.board);
     deployingShips(player);
 
-    const ai = new AI();
 
     ai.createShips();
     ai.getShips()
@@ -135,9 +138,7 @@ function updateBoard(player) {
             })
     })
     if(player.ships.length === 5) {
-        player.ships.forEach(ship => {
-            console.log(ship.location)
-        })
+        gameStart(player);
     }
 }
 
@@ -163,3 +164,9 @@ const loc ={
 
 }
 
+function gameStart(player) {
+    const game = new Game(player, ai);
+
+    game.gameStart();
+    game.getAIShips()
+}

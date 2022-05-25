@@ -8,4 +8,11 @@ export default class Player {
         this.ships = [];
         this.board = gameBoard();
     }
+
+    attackCell(ai, cellNum) {
+        console.log(`Enemy: ${ai}`)
+        console.log(`Attack AI board ${cellNum}`);
+    }
+    
 }
+
