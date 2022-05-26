@@ -10,8 +10,9 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     const container = document.querySelector('.modal-bg');
     const playerName = document.querySelector('.nameText').value;
     const player = new Player(playerName);
-    container.append(player.board);
-    deployingShips(player);
+    const playerBoard = player.board.createBoard();
+    container.append(playerBoard);
+    deployingShips(player, playerBoard);
 
 
     ai.createShips();
@@ -19,14 +20,14 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
 
 })
 
-function deployingShips(player) {
+function deployingShips(player, playerBoard) {
     let isHorizontal = false;
     const btnRorate = document.querySelector('.btn-rotate-ship')
-    player.board.addEventListener('mouseover', (e) => {
+    playerBoard.addEventListener('mouseover', (e) => {
         mouseoverHandle(e, player, isHorizontal)
     })
-    player.board.addEventListener('mouseout', hoverEffectRemover)
-    player.board.addEventListener('click', (e) => {
+    playerBoard.addEventListener('mouseout', hoverEffectRemover)
+    playerBoard.addEventListener('click', (e) => {
        placeShip(player, isHorizontal);
     })
 
