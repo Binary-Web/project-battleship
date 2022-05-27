@@ -1,10 +1,11 @@
 import gameBoard from './factory/gameBoard.js';
-import Ship from './factory/Ship.js'
+import Ship from './factory/Ship.js';
+import Board from './factory/Board.js'
 
 export default class AI {
     constructor() {
         this.ships = []
-        this.board = gameBoard();
+        this.board = new Board('AI')
     }
 
     createShips() {
@@ -33,9 +34,6 @@ export default class AI {
     }
 
     placeRandom(shipLength, bool) {
-        const healthBarLength = shipLength;
-        const isHorizontal = bool;
-
         start: while(true) {
             let temp = Math.floor(Math.random()*99) + 1;
         
@@ -76,11 +74,10 @@ export default class AI {
             }
     
             //if checkLoc returns an array with value
-            if(this.checkLoc(tempLoc).length > 1) {
+            if(this.checkLoc(tempLoc)) {
                 continue start
             } else {
                 return tempLoc;
-                break;
             }
         }
         
@@ -94,17 +91,27 @@ export default class AI {
             //putting all taken cells to 'allCoord' var
             ship.location.forEach(coord => allCoord.push(coord))
         }) 
+
+        console.log(allCoord)
     
         //check if the random location is valid
+        // loc.forEach(a => {
+        //     allCoord.forEach(x => {
+        //         if(a == x) {
+        //             //if test has a value it is NOT valid
+        //             test.push(a)
+        //         }
+        //     })
+        // })
+
         loc.forEach(a => {
-            allCoord.forEach(x => {
-                if(a == x) {
-                    //if test has a value it is NOT valid
-                    test.push(a)
-                }
-            })
+            if(allCoord.includes(a)) {
+                console.log(`${a} in ${allCoord}`)
+                console.log('not allwed');
+                return true
+            }
         })
-        return test
+        return false
         
     }
 

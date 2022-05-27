@@ -5,7 +5,7 @@ export default class Game {
     }
     
     gameStart() {
-        this.player.attackCell(this.ai.ships, 12); 
+        this.player.attackCell(this.ai, 12); 
     }
 
     getAIShips() {

@@ -5,9 +5,9 @@ export default class Board {
 
     createBoard() {
         const board = document.createElement('div');
-    const button = document.createElement('button');
-    button.classList.add('btn-rotate');
-    board.classList.add('board');
+        const button = document.createElement('button');
+        button.classList.add('btn-rotate');
+        board.classList.add('board');
 
     let counter = 0;
     for(let x = 0; x <= 9; x++) {

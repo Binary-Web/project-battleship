@@ -10,8 +10,8 @@ export default class Player {
     }
 
     attackCell(ai, cellNum) {
-        console.log(`Enemy: ${ai}`)
-        console.log(`Attack AI board ${cellNum}`);
+        
+        console.log(ai)
     }
     
 }

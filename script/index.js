@@ -139,6 +139,7 @@ function updateBoard(player) {
             })
     })
     if(player.ships.length === 5) {
+        console.log(player.ships)
         gameStart(player);
     }
 }
