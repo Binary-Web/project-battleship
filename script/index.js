@@ -17,6 +17,7 @@ document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
 
     ai.createShips();
     ai.getShips()
+    console.log(ai.board.boardStatus)
 
 })
 
@@ -139,7 +140,7 @@ function updateBoard(player) {
             })
     })
     if(player.ships.length === 5) {
-        console.log(player.ships)
+        console.log(ai.ships)
         gameStart(player);
     }
 }

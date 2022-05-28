@@ -1,33 +1,14 @@
 export default class Board {
     constructor(player) {
         this.boardOwner = player;
+        // create a board 10x10, coords board[row][col];
+        this.arrBoard = Array(10).fill(null).map(() => Array(10).fill(null));
     }
 
-    createBoard() {
-        const board = document.createElement('div');
-        const button = document.createElement('button');
-        button.classList.add('btn-rotate');
-        board.classList.add('board');
+    placeRandom(ship) {
+        const row = Math.floor(Math.random() * 10);
+        const col = Math.floor(Math.random() * 10);
 
-    let counter = 0;
-    for(let x = 0; x <= 9; x++) {
-        const hLine = document.createElement('div');
-        hLine.classList.add('horizontal-line');
-        hLine.dataset.x = x;
-        for(let y = 0; y <= 9; y++) {
-            const cell = document.createElement('div');
-            cell.classList.add('board-cell');
-
-            //this counter will work as coordinates
-            cell.dataset.cellnumber = counter;
-            counter++
-            hLine.append(cell);
-        }
-
-        board.append(hLine)
-
-    }
-    
-    return board;
+        const isHortizontal = Math.random() > 0.5
     }
 }
