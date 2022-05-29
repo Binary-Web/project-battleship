@@ -177,29 +177,37 @@ import Board from './factory/Board.js'
 
 document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     e.preventDefault();
-
+    const test = new Player('testLang');
+    test.board.randomPlace(test.ships[0])
+    test.board.randomPlace(test.ships[1])
+    test.board.randomPlace(test.ships[2])
+    test.board.randomPlace(test.ships[3])
+    test.board.randomPlace(test.ships[4])
+    console.log(test.board.arrBoard);
     const modal = document.querySelector('.modal-bg');
 
-    const board = new Board('test');
+    // const board = new Board('test');
 
-    const displayBoard = document.createElement('div');
-    displayBoard.classList.add('display-board')
+    // const displayBoard = document.createElement('div');
+    // displayBoard.classList.add('display-board')
     
-    for(let y = 0; y < 10; y ++) {
-        const hLine = document.createElement('div');
-        hLine.classList.add('horizontal-line')
-        hLine.classList.add('row-cell');
+    // for(let y = 0; y < 10; y ++) {
+    //     const hLine = document.createElement('div');
+    //     hLine.classList.add('horizontal-line')
+    //     hLine.classList.add('row-cell');
 
-        for(let x = 0; x < 10; x++) {
-            const cell = document.createElement('div');
-            cell.classList.add('single-cell');
-            cell.innerHTML = `[${y}][${x}]`;
-            hLine.append(cell);
-        }
+    //     for(let x = 0; x < 10; x++) {
+    //         const cell = document.createElement('div');
+    //         cell.classList.add('single-cell');
+    //         cell.innerHTML = `[${y}][${x}]`;
+    //         hLine.append(cell);
+    //     }
 
-        displayBoard.append(hLine);
-    }
+    //     displayBoard.append(hLine);
+    // }
 
-    modal.append(displayBoard);
+    // modal.append(displayBoard);
+
+    modal.append(test.board.updateDisplayBoard())
 
 })
