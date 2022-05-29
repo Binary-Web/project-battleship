@@ -2,174 +2,204 @@ import Player from './Player.js'
 import Ship from './/factory/Ship.js';
 import AI from './AIPlayer.js';
 import Game from './factory/Game.js'
+import Board from './factory/Board.js'
 
 
-const ai = new AI();
+// const ai = new AI();
+// document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const container = document.querySelector('.modal-bg');
+//     const playerName = document.querySelector('.nameText').value;
+//     const player = new Player(playerName);
+//     const playerBoard = player.board.createBoard();
+//     container.append(playerBoard);
+//     deployingShips(player, playerBoard);
+
+
+//     ai.createShips();
+//     ai.getShips()
+//     console.log(ai.board.boardStatus)
+
+// })
+
+// function deployingShips(player, playerBoard) {
+//     let isHorizontal = false;
+//     const btnRorate = document.querySelector('.btn-rotate-ship')
+//     playerBoard.addEventListener('mouseover', (e) => {
+//         mouseoverHandle(e, player, isHorizontal)
+//     })
+//     playerBoard.addEventListener('mouseout', hoverEffectRemover)
+//     playerBoard.addEventListener('click', (e) => {
+//        placeShip(player, isHorizontal);
+//     })
+
+//     btnRorate.addEventListener('click', () => isHorizontal = !isHorizontal)
+// }
+
+// function placeShip(player, isHorizontal) {
+//     const counter = player.ships.length;
+    
+//     if(checkCellIfAvaible(player).length == 0) {
+//         if(counter <= 4) {
+//             switch(counter) {
+//                 case 0:
+//                     player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
+//                     break;
+//                 case 1:
+//                     player.ships.push(new Ship('Battleship', 4, isHorizontal, loc.getLoc()))
+//                     break;
+//                 case 2:
+//                     player.ships.push(new Ship('Cruiser', 3, isHorizontal, loc.getLoc()))
+//                     break;
+//                 case 3:
+//                     player.ships.push(new Ship('Submarine', 3, isHorizontal, loc.getLoc()))
+//                     break;
+//                 case 4:
+//                     player.ships.push(new Ship('Destroyer', 5, isHorizontal, loc.getLoc()))
+//                     break;    
+//             }
+//         }
+//     } else {
+//         console.log('cell is occupied by another ship')
+//     }
+//     updateBoard(player)
+// }
+
+// function mouseoverHandle(e, player, isHorizontal) {
+
+//     loc.clearLoc();
+//     const cells = document.querySelectorAll('.board-cell');
+//     hoverEffectRemover()
+//     const counter = player.ships.length;
+//     let length;
+//     switch(counter) {
+//         case 0:
+//             length = 5;
+//             break;
+//         case 1:
+//             length = 4;
+//             break;
+//         case 2:
+//             length = 3;
+//             break;
+//         case 3:
+//             length = 3;
+//             break;
+//         case 4:
+//             length = 2;
+//             break;    
+//     }
+
+    
+//     let num = parseInt(e.target.dataset.cellnumber);
+//     let overFlowNum = 10 - length;
+//     let hCellNum = num % 10;
+//     for(let x = 0; x < length; x++) {
+        
+//         if(isHorizontal) {
+//             if(hCellNum <= overFlowNum) {
+//                 loc.currentLoc.push(num);
+//                 cells[num++].classList.add('hover-cell');
+//             } else {
+//                 console.log('madi')
+//             }
+            
+//         } else {
+//             try {
+//                 cells[num].classList.add('hover-cell');
+//                 loc.currentLoc.push(num);
+//                 num+=10;
+//             } catch(err) {
+//                 hoverEffectRemover()
+//             }
+//         }
+//     }
+// }
+
+// function checkCellIfAvaible(player) {
+//     const allCoord = [];
+//     let test = [];
+//     player.ships.forEach(ship => {
+//         ship.location.forEach(loc => allCoord.push(loc))
+//     }) 
+
+//     loc.currentLoc.forEach(loc => {
+//         allCoord.forEach(x => {
+//             if(loc == x) {
+//                 test.push(loc)
+//             }
+//         })
+//     })
+//     return test
+// }
+
+// function updateBoard(player) {
+//     const cells = document.querySelectorAll('.board-cell');
+//     player.ships.forEach(ship => {
+//             ship.location.forEach(cellNum => {
+//                 cells[cellNum].classList.add('ship-cell')
+//             })
+//     })
+//     if(player.ships.length === 5) {
+//         console.log(ai.ships)
+//         gameStart(player);
+//     }
+// }
+
+
+
+// function hoverEffectRemover() {
+//     const cells = document.querySelectorAll('.board-cell');
+//     cells.forEach(cell => {
+//         cell.classList.remove('hover-cell')
+//     })
+// }
+
+// const loc ={
+//     currentLoc: [],
+
+//     clearLoc() {
+//         this.currentLoc = [];
+//     },
+
+//     getLoc() {
+//         return this.currentLoc;
+//     },
+
+// }
+
+// function gameStart(player) {
+//     const game = new Game(player, ai);
+
+//     game.gameStart();
+//     game.getAIShips()
+// }
+
 document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     e.preventDefault();
-    const container = document.querySelector('.modal-bg');
-    const playerName = document.querySelector('.nameText').value;
-    const player = new Player(playerName);
-    const playerBoard = player.board.createBoard();
-    container.append(playerBoard);
-    deployingShips(player, playerBoard);
 
+    const modal = document.querySelector('.modal-bg');
 
-    ai.createShips();
-    ai.getShips()
-    console.log(ai.board.boardStatus)
+    const board = new Board('test');
+
+    const displayBoard = document.createElement('div');
+    displayBoard.classList.add('display-board')
+    
+    for(let y = 0; y < 10; y ++) {
+        const hLine = document.createElement('div');
+        hLine.classList.add('horizontal-line')
+        hLine.classList.add('row-cell');
+
+        for(let x = 0; x < 10; x++) {
+            const cell = document.createElement('div');
+            cell.classList.add('single-cell');
+            cell.innerHTML = `[${y}][${x}]`;
+            hLine.append(cell);
+        }
+
+        displayBoard.append(hLine);
+    }
+
+    modal.append(displayBoard);
 
 })
-
-function deployingShips(player, playerBoard) {
-    let isHorizontal = false;
-    const btnRorate = document.querySelector('.btn-rotate-ship')
-    playerBoard.addEventListener('mouseover', (e) => {
-        mouseoverHandle(e, player, isHorizontal)
-    })
-    playerBoard.addEventListener('mouseout', hoverEffectRemover)
-    playerBoard.addEventListener('click', (e) => {
-       placeShip(player, isHorizontal);
-    })
-
-    btnRorate.addEventListener('click', () => isHorizontal = !isHorizontal)
-}
-
-function placeShip(player, isHorizontal) {
-    const counter = player.ships.length;
-    
-    if(checkCellIfAvaible(player).length == 0) {
-        if(counter <= 4) {
-            switch(counter) {
-                case 0:
-                    player.ships.push(new Ship('Carrier', 5, isHorizontal, loc.getLoc()))
-                    break;
-                case 1:
-                    player.ships.push(new Ship('Battleship', 4, isHorizontal, loc.getLoc()))
-                    break;
-                case 2:
-                    player.ships.push(new Ship('Cruiser', 3, isHorizontal, loc.getLoc()))
-                    break;
-                case 3:
-                    player.ships.push(new Ship('Submarine', 3, isHorizontal, loc.getLoc()))
-                    break;
-                case 4:
-                    player.ships.push(new Ship('Destroyer', 5, isHorizontal, loc.getLoc()))
-                    break;    
-            }
-        }
-    } else {
-        console.log('cell is occupied by another ship')
-    }
-    updateBoard(player)
-}
-
-function mouseoverHandle(e, player, isHorizontal) {
-
-    loc.clearLoc();
-    const cells = document.querySelectorAll('.board-cell');
-    hoverEffectRemover()
-    const counter = player.ships.length;
-    let length;
-    switch(counter) {
-        case 0:
-            length = 5;
-            break;
-        case 1:
-            length = 4;
-            break;
-        case 2:
-            length = 3;
-            break;
-        case 3:
-            length = 3;
-            break;
-        case 4:
-            length = 2;
-            break;    
-    }
-
-    
-    let num = parseInt(e.target.dataset.cellnumber);
-    let overFlowNum = 10 - length;
-    let hCellNum = num % 10;
-    for(let x = 0; x < length; x++) {
-        
-        if(isHorizontal) {
-            if(hCellNum <= overFlowNum) {
-                loc.currentLoc.push(num);
-                cells[num++].classList.add('hover-cell');
-            } else {
-                console.log('madi')
-            }
-            
-        } else {
-            try {
-                cells[num].classList.add('hover-cell');
-                loc.currentLoc.push(num);
-                num+=10;
-            } catch(err) {
-                hoverEffectRemover()
-            }
-        }
-    }
-}
-
-function checkCellIfAvaible(player) {
-    const allCoord = [];
-    let test = [];
-    player.ships.forEach(ship => {
-        ship.location.forEach(loc => allCoord.push(loc))
-    }) 
-
-    loc.currentLoc.forEach(loc => {
-        allCoord.forEach(x => {
-            if(loc == x) {
-                test.push(loc)
-            }
-        })
-    })
-    return test
-}
-
-function updateBoard(player) {
-    const cells = document.querySelectorAll('.board-cell');
-    player.ships.forEach(ship => {
-            ship.location.forEach(cellNum => {
-                cells[cellNum].classList.add('ship-cell')
-            })
-    })
-    if(player.ships.length === 5) {
-        console.log(ai.ships)
-        gameStart(player);
-    }
-}
-
-
-
-function hoverEffectRemover() {
-    const cells = document.querySelectorAll('.board-cell');
-    cells.forEach(cell => {
-        cell.classList.remove('hover-cell')
-    })
-}
-
-const loc ={
-    currentLoc: [],
-
-    clearLoc() {
-        this.currentLoc = [];
-    },
-
-    getLoc() {
-        return this.currentLoc;
-    },
-
-}
-
-function gameStart(player) {
-    const game = new Game(player, ai);
-
-    game.gameStart();
-    game.getAIShips()
-}

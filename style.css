@@ -32,3 +32,14 @@ body {
 .ship-name {
     color: white
 }
+
+
+
+
+/* THIS IS JUST TESTING PART =============================================*/
+.single-cell {
+    color: #ffffff;
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid #ffffff
+}

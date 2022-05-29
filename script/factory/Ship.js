@@ -6,6 +6,10 @@ export default class Ship {
         this.isHorizontal = isHorizontal;
     }
 
+    getPos() {
+        return this.isHorizontal;
+    }
+
     hit(index) {
         this.hitBoxes[index] = "x";
         this.isSunk();
@@ -35,4 +39,3 @@ export default class Ship {
     }
 
 }
-
