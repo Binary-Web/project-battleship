@@ -5,15 +5,19 @@
 }
 
 body {
-    background-color: #000000;
+    background-color: #838383;
 }
 
+.main {
+    display: flex;
+    gap: 1rem;
+}
 
 /* GAME BOARD =================================================== */
 .board-cell {
     height: 40px;
     width: 40px;
-    border: 1px solid white;
+    border: 1px solid #000000;
     color: white;
 }
 
@@ -29,6 +33,10 @@ body {
     background-color: blue;
 }
 
+.taken-cell {
+    background-color: #000000;
+}
+
 /* SHIP SELECTION =================================================*/
 .ship-name {
     color: white
@@ -42,5 +50,5 @@ body {
     color: #ffffff;
     height: 3rem;
     width: 3rem;
-    border: 1px solid #ffffff
+    border: 1px solid #000000
 }

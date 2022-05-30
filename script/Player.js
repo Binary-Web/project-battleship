@@ -6,8 +6,12 @@ import Board from './factory/Board.js';
 export default class Player {
     constructor(name) {
         this.name = name;
-        this.ships = createShips();
+        this.ships = createShips()
         this.board = new Board(name)
+    }
+
+    getShips() {
+        return this.ships
     }
 }
 

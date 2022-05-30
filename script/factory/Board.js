@@ -1,8 +1,11 @@
 export default class Board {
-    constructor(player) {
-        this.boardOwner = player;
+    constructor() {
         // create a board 10x10, coords board[row][col] / board[y][x];
         this.arrBoard = Array(10).fill(null).map(() => Array(10).fill(null));
+    }
+
+    allShipDeploy(ships) {
+        ships.forEach(ship => this.randomPlace(ship))
     }
 
     randomPlace(ship) {
@@ -12,13 +15,11 @@ export default class Board {
         //horizontal if true
         const changePos = Math.random() > 0.5;
         if(changePos) ship.switchPosition();
-        // console.log(`FROM: [${row}, ${col}]`)
         const deployed = this.deployShip(ship, row, col);
         if(!deployed) this.randomPlace(ship);
     }
 
     deployShip(ship, row, col) {
-        const shipPosition = ship.getPosition();
         const valid = this.isValid(ship.length, ship.isHorizontal, row, col);
         if(valid) {
             console.log('valid')
@@ -65,9 +66,9 @@ export default class Board {
 
         return [x, y]
     }
+    
 
-    updateDisplayBoard() {
-        
+    displayBoard() {
         const displayBoard = document.createElement('div');
         displayBoard.classList.add('display-board')
 
@@ -75,10 +76,13 @@ export default class Board {
             const cellLine = document.createElement('div');
             cellLine.classList.add('horizontal-line');
 
-            element.forEach(cell => {
+            element.forEach((cell) => {
                 const boardCell = document.createElement('div');
                 boardCell.classList.add('board-cell');
-                boardCell.innerHTML = cell;
+                if(cell) {
+                    boardCell.innerText = cell.index
+                    boardCell.classList.add('taken-cell');
+                }
                 cellLine.append(boardCell);
             })
             
@@ -86,6 +90,5 @@ export default class Board {
         })
 
         return displayBoard
-
     }
 }
