@@ -67,22 +67,34 @@ export default class Board {
         return [x, y]
     }
     
+    updateBoard(y, x) {
+        if(this.arrBoard[y][x] === null) {
+            this.arrBoard[y][x] = 'missed'
+        } else {
+            this.arrBoard[y][x] = 'attacked';
+        }
+        
+        return this.arrBoard[y][x]
+    }
 
     displayBoard() {
         const displayBoard = document.createElement('div');
         displayBoard.classList.add('display-board')
 
-        this.arrBoard.forEach(element => {
+        this.arrBoard.forEach((element, y) => {
             const cellLine = document.createElement('div');
             cellLine.classList.add('horizontal-line');
 
-            element.forEach((cell) => {
+            element.forEach((cell, x) => {
                 const boardCell = document.createElement('div');
+                boardCell.setAttribute('y', y);
+                boardCell.setAttribute('x', x);
                 boardCell.classList.add('board-cell');
-                if(cell) {
-                    boardCell.innerText = cell.index
-                    boardCell.classList.add('taken-cell');
-                }
+                //if(!hide){
+                    if(cell) boardCell.classList.add('taken-cell');
+                //}
+                    
+                
                 cellLine.append(boardCell);
             })
             

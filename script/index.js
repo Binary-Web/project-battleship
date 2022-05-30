@@ -176,28 +176,30 @@ import createShips from './factory/createShips.js'
 //     game.getAIShips()
 // }
 
+const main = document.querySelector('.main');
+
 document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
     e.preventDefault();
     const playerName = document.querySelector('.nameText').value;
-
-    gameStart(playerName);
-})
-
-function gameStart(playerName) {
     const playerOne = new Player(playerName);
     const AI = new Player('AI');
-    
-    const main = document.querySelector('.main');
 
+    
     playerOne.board.allShipDeploy(playerOne.ships);
     AI.board.allShipDeploy(AI.ships)
-    
 
     const game = new Game(playerOne, AI);
-
+    
+    const playerBoard = game.getPlayerBoard();
+    playerBoard.classList.add('player-board');
+    
+    const aiBoard = game.getAiBoard();
+    aiBoard.classList.add('ai-board')
 
     main.innerHTML = "";
-    main.append(game.getPlayerBoard());
-    main.append(game.getAiBoard())
-}
 
+    main.append(playerBoard);
+    main.append(aiBoard);
+
+    game.start();
+})

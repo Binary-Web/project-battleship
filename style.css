@@ -21,6 +21,8 @@ body {
     color: white;
 }
 
+
+
 .horizontal-line {
     display: flex;
 }
@@ -35,6 +37,14 @@ body {
 
 .taken-cell {
     background-color: #000000;
+}
+
+.missed-cell {
+    background-color: #ffffff;
+}
+
+.attacked-cell {
+    background-color: #ff0000;
 }
 
 /* SHIP SELECTION =================================================*/

@@ -10,8 +10,8 @@ export default class Player {
         this.board = new Board(name)
     }
 
-    getShips() {
-        return this.ships
-    }
+    getShips() { return this.ships }
+
+    attack(board, y, x) { return board.updateBoard(y, x); }
 }
 
