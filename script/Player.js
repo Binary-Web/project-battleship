@@ -12,6 +12,8 @@ export default class Player {
 
     getShips() { return this.ships }
 
-    attack(board, y, x) { return board.updateBoard(y, x); }
+    attack(board, y, x) {
+        return board.updateBoard(y, x);
+    }
 }
 

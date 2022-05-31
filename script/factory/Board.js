@@ -22,7 +22,6 @@ export default class Board {
     deployShip(ship, row, col) {
         const valid = this.isValid(ship.length, ship.isHorizontal, row, col);
         if(valid) {
-            console.log('valid')
             for(let i = 0; i < ship.length; i++) {
                 const [y, x]= this.adjustCoord(ship.isHorizontal, row, col, i);
 
@@ -69,12 +68,11 @@ export default class Board {
     
     updateBoard(y, x) {
         if(this.arrBoard[y][x] === null) {
-            this.arrBoard[y][x] = 'missed'
+            return 'missed';
         } else {
-            this.arrBoard[y][x] = 'attacked';
+            this.arrBoard[y][x].ship.hit();
+            return 'attacked'
         }
-        
-        return this.arrBoard[y][x]
     }
 
     displayBoard() {
