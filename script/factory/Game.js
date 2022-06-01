@@ -34,17 +34,57 @@ export default class Game {
              } else if (result === 'attacked'){
                  e.target.classList.add('attacked-cell');
              }
-             const noWinner = this.getWinner();
-             console.log(noWinner)
-             if(noWinner) {
-                 console.log('PLAYER WINNER')
+
+             const playerWin = this.isPlayerWinner();
+             if(playerWin) {
+                 this.declareWinner('player');
+             } else {
+                 this.aiRandomAttack();
              }
          })
     }
 
-    getWinner() {
-        return this.ai.ships.every((ship) => ship.isSunk() === true)
-
+    aiRandomAttack() {
+        const y = Math.floor(Math.random() * 10);
+        const x = Math.floor(Math.random() * 10);
+        const boardCell = document.querySelector(`.x-${x}.y-${y}`);
         
+        const cellStatus = boardCell.getAttribute('status');
+
+
+        //if the random cell is already taken it runs the function again
+        if(cellStatus !== 'done'){
+            const result = this.ai.attack(this.player.board, y, x);
+
+            if(result === 'missed') {
+                boardCell.classList.add('missed-cell');
+            } else if (result === 'attacked'){
+                boardCell.classList.add('attacked-cell');
+    
+                const aiWin = this.isAiWinner();
+                if(aiWin) {
+                    this.declareWinner('AI');
+                }
+                
+            }
+
+            boardCell.setAttribute('status', 'done');
+        } else {
+            console.log('again')
+            this.aiRandomAttack()
+        }
+
+    }
+
+    isPlayerWinner() {
+        return this.ai.ships.every((ship) => ship.isSunk() === true)
+    }
+
+    isAiWinner() {
+        return this.player.ships.every((ship) => ship.isSunk() === true)
+    }
+
+    declareWinner(winner) {
+        console.log(`WINNER: ${winner}`)
     }
 }

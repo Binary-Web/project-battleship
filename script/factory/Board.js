@@ -85,6 +85,12 @@ export default class Board {
 
             element.forEach((cell, x) => {
                 const boardCell = document.createElement('div');
+
+                //getting the coord for a random attack from ai
+                boardCell.classList.add(`y-${y}`);
+                boardCell.classList.add(`x-${x}`)
+
+                //this will be for the click event
                 boardCell.setAttribute('y', y);
                 boardCell.setAttribute('x', x);
                 boardCell.classList.add('board-cell');
