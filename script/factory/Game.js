@@ -29,18 +29,23 @@ export default class Game {
              const x = e.target.getAttribute('x');
              const result = this.player.attack(this.ai.board, y, x);
              
-             if(result === 'missed') {
-                 e.target.classList.add('missed-cell')
-             } else if (result === 'attacked'){
-                 e.target.classList.add('attacked-cell');
+             if(e.target.getAttribute('status') !== "done") {
+                if(result === 'missed') {
+                    e.target.classList.add('missed-cell')
+                } else if (result === 'attacked'){
+                    e.target.classList.add('attacked-cell');
+                }
+   
+                e.target.setAttribute('status', 'done');
+   
+                const playerWin = this.isPlayerWinner();
+                if(playerWin) {
+                    this.declareWinner('player');
+                } else {
+                    this.aiRandomAttack();
+                }
              }
-
-             const playerWin = this.isPlayerWinner();
-             if(playerWin) {
-                 this.declareWinner('player');
-             } else {
-                 this.aiRandomAttack();
-             }
+             
          })
     }
 
