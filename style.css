@@ -2,16 +2,40 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Bebas Neue', cursive;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
     background-color: #838383;
 }
 
+.app-title {
+    font-family: 'Passion One', cursive;
+    font-size: 10rem;
+    border-bottom: 3px solid black;
+}
 .main {
+    height: 100vh;
     display: flex;
     gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+.inputPlayerName {
+    display: flex;
+    width: 23%;
+    justify-content: center;
+}
+.nameText, .btn-enter {
+    padding: 0.5rem 1rem;
+}
+.nameText{
+    width: 100%;
+}
+
 
 /* GAME BOARD =================================================== */
 .board-cell {
@@ -21,18 +45,12 @@ body {
     color: white;
 }
 
-
-
 .horizontal-line {
     display: flex;
 }
 
 .hover-cell {
     background-color: #8d8d8d;
-}
-
-.ship-cell {
-    background-color: blue;
 }
 
 .taken-cell {
@@ -47,18 +65,3 @@ body {
     background-color: #ff0000;
 }
 
-/* SHIP SELECTION =================================================*/
-.ship-name {
-    color: white
-}
-
-
-
-
-/* THIS IS JUST TESTING PART =============================================*/
-.single-cell {
-    color: #ffffff;
-    height: 3rem;
-    width: 3rem;
-    border: 1px solid #000000
-}
