@@ -76,3 +76,34 @@ body {
     background-color: #ff0000;
 }
 
+/* DECLARING THE WINNER WITH A MODAL */
+
+.modal-bg {
+    background-color: rgb(0,0,0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    backdrop-filter: blur(7px);
+    
+}
+
+.winner {
+    border-radius: 25px;
+    padding: 2rem;
+    background-color: #ff0000;
+    box-shadow: 0px 5px 5px #000000;
+    font-size: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.winner > button {
+    width: 30%;
+    align-self: center;
+}

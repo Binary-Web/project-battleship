@@ -40,7 +40,7 @@ export default class Game {
    
                 const playerWin = this.isPlayerWinner();
                 if(playerWin) {
-                    this.declareWinner('player');
+                    this.declareWinner('YOU');
                 } else {
                     this.aiRandomAttack();
                 }
@@ -92,6 +92,22 @@ export default class Game {
     }
 
     declareWinner(winner) {
-        console.log(`WINNER: ${winner}`)
+
+
+        const modalBg  = document.createElement('div');
+        modalBg.classList.add('modal-bg');
+
+        const divWinner = document.createElement('div');
+        divWinner.classList.add('winner');
+        divWinner.innerText = `${winner} won!`;
+
+        const playButton = document.createElement('button');
+        playButton.innerText = "Play Again";
+
+        divWinner.append(playButton);
+
+        modalBg.append(divWinner)
+
+        document.body.append(modalBg)
     }
 }
