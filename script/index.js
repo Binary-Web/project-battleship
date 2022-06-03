@@ -177,29 +177,48 @@ import createShips from './factory/createShips.js'
 // }
 
 const main = document.querySelector('.main');
+const inputName = document.querySelector('.inputPlayerName');
 
-document.querySelector('.inputPlayerName').addEventListener('submit', (e) => {
+inputName.addEventListener('submit', (e) => {
     e.preventDefault();
     const playerName = document.querySelector('.nameText').value;
     const playerOne = new Player(playerName);
     const AI = new Player('AI');
+
+    const boards = document.createElement('div');
+    boards.classList.add('boards-all');
 
     
     playerOne.board.allShipDeploy(playerOne.ships);
     AI.board.allShipDeploy(AI.ships)
 
     const game = new Game(playerOne, AI);
-    
+
     const playerBoard = game.getPlayerBoard();
+    const you = document.createElement('h1');
+    you.innerText = "YOU"
+    you.classList.add('board-name')
+    playerBoard.prepend(you)
     playerBoard.classList.add('player-board');
     
     const aiBoard = game.getAiBoard();
-    aiBoard.classList.add('ai-board')
+    const ai = document.createElement('h1');
+    ai.classList.add('board-name')
+    ai.innerText = "AI"
+    aiBoard.classList.add('ai-board');
+    aiBoard.prepend(ai);
 
-    main.innerHTML = "";
+    inputName.remove()
 
-    main.append(playerBoard);
-    main.append(aiBoard);
+
+
+    const vs = document.createElement('h2');
+    vs.innerText = "VS"
+    boards.append(playerBoard);
+    boards.append(vs)
+    boards.append(aiBoard);
+
+    main.append(boards)
 
     game.start();
 })

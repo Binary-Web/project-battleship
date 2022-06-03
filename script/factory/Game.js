@@ -59,6 +59,8 @@ export default class Game {
 
         //if the random cell is already taken it runs the function again
         if(cellStatus !== 'done'){
+
+            //this will return if it's a hit or missed
             const result = this.ai.attack(this.player.board, y, x);
 
             if(result === 'missed') {
@@ -72,7 +74,7 @@ export default class Game {
                 }
                 
             }
-
+            //marking the cell thats been attacked
             boardCell.setAttribute('status', 'done');
         } else {
             console.log('again')

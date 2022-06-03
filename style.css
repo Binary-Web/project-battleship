@@ -13,7 +13,6 @@ body {
 .app-title {
     font-family: 'Passion One', cursive;
     font-size: 10rem;
-    border-bottom: 3px solid black;
 }
 .main {
     height: 100vh;
@@ -36,6 +35,14 @@ body {
     width: 100%;
 }
 
+.boards-all {
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /* GAME BOARD =================================================== */
 .board-cell {
@@ -43,6 +50,10 @@ body {
     width: 40px;
     border: 1px solid #000000;
     color: white;
+}
+
+.board-name {
+    text-align: center;
 }
 
 .horizontal-line {
