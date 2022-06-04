@@ -71,7 +71,7 @@ export default class Board {
             return 'missed';
         } else {
             this.arrBoard[y][x].ship.hit();
-            return 'attacked'
+            return 'hit'
         }
     }
 

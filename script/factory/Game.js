@@ -32,7 +32,7 @@ export default class Game {
              if(e.target.getAttribute('status') !== "done") {
                 if(result === 'missed') {
                     e.target.classList.add('missed-cell')
-                } else if (result === 'attacked'){
+                } else if (result === 'hit'){
                     e.target.classList.add('attacked-cell');
                 }
    
@@ -59,15 +59,14 @@ export default class Game {
 
         //if the random cell is already taken it runs the function again
         if(cellStatus !== 'done'){
-
             //this will return if it's a hit or missed
             const result = this.ai.attack(this.player.board, y, x);
 
             if(result === 'missed') {
                 boardCell.classList.add('missed-cell');
-            } else if (result === 'attacked'){
+            } else if (result === 'hit'){
                 boardCell.classList.add('attacked-cell');
-    
+                
                 const aiWin = this.isAiWinner();
                 if(aiWin) {
                     this.declareWinner('AI');
