@@ -75,7 +75,7 @@ export default class Board {
         }
     }
 
-    displayBoard() {
+    displayBoard(hide) {
         const displayBoard = document.createElement('div');
         displayBoard.classList.add('display-board')
 

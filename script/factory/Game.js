@@ -108,5 +108,9 @@ export default class Game {
         modalBg.append(divWinner)
 
         document.body.append(modalBg)
+
+        playButton.addEventListener('click', () => {
+            location.reload()
+        })
     }
 }
