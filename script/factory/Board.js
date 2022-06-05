@@ -94,9 +94,9 @@ export default class Board {
                 boardCell.setAttribute('y', y);
                 boardCell.setAttribute('x', x);
                 boardCell.classList.add('board-cell');
-                //if(!hide){
+                if(!hide){
                     if(cell) boardCell.classList.add('taken-cell');
-                //}
+                }
                     
                 
                 cellLine.append(boardCell);
