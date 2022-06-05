@@ -178,11 +178,11 @@ import createShips from './factory/createShips.js'
 
 const main = document.querySelector('.main');
 const inputName = document.querySelector('.inputPlayerName');
+const btnStart = document.querySelector('.btn-start')
 
-inputName.addEventListener('submit', (e) => {
+btnStart.addEventListener('click', (e) => {
     e.preventDefault();
-    const playerName = document.querySelector('.nameText').value;
-    const playerOne = new Player(playerName);
+    const playerOne = new Player("player");
     const AI = new Player('AI');
 
     const boards = document.createElement('div');
@@ -208,7 +208,7 @@ inputName.addEventListener('submit', (e) => {
     aiBoard.classList.add('ai-board');
     aiBoard.prepend(ai);
 
-    inputName.remove()
+    btnStart.remove()
 
 
 
