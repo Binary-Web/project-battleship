@@ -42,7 +42,6 @@ export default class Board {
             //this to check if ship goes outside the board
             if(y < 10 && x < 10) {
                 cells.push(this.arrBoard[y][x]);
-                console.log(cells)
             } else {
                 return false;
             }

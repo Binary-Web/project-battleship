@@ -182,9 +182,14 @@ const btnStart = document.querySelector('.btn-start')
 
 btnStart.addEventListener('click', (e) => {
     e.preventDefault();
+
+
+
     const playerOne = new Player("player");
     const AI = new Player('AI');
 
+    
+    
     const boards = document.createElement('div');
     boards.classList.add('boards-all');
 
@@ -221,4 +226,5 @@ btnStart.addEventListener('click', (e) => {
     main.append(boards)
 
     game.start();
-})
+});
+
