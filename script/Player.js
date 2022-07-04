@@ -1,6 +1,5 @@
 
 
-import gameBoard from './factory/gameBoard.js';
 import createShips from './factory/createShips.js'
 import Board from './factory/Board.js';
 export default class Player {

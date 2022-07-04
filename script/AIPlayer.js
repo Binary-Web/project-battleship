@@ -1,4 +1,3 @@
-import gameBoard from './factory/gameBoard.js';
 import Ship from './factory/Ship.js';
 import Board from './factory/Board.js'
 
@@ -46,11 +45,7 @@ export default class AI {
     
             let z = (temp + (shipLength * 10)) - 10;
 
-            
-
-
             let tempLoc = []
-    
     
             if(bool) {
                 if(x > a) {
@@ -62,7 +57,6 @@ export default class AI {
                 if(z > 99) {
                     continue start;
                 }
-                
             }
     
             for(let x = 1; x <= shipLength; x++) {    
@@ -85,42 +79,23 @@ export default class AI {
                 return tempLoc
             }
         }
-            
-        
     }
 
     checkLoc(loc) {
         return new Promise((resolve, reject) => {
-
             loc.forEach(x => {
                 console.log(`this.board.boardStatus[x] !== null`);
                 console.log(`${this.board.boardStatus[x]} !== null`)
                 if(this.board.boardStatus[x] !== null) {
                     reject(false);
                 }
-
-                
             })
             resolve(true)
         })
-
-        //check if the random location is valid
-        // loc.forEach(a => {
-        //     allCoord.forEach(x => {
-        //         if(a == x) {
-        //             //if test has a value it is NOT valid
-        //             test.push(a)
-        //         }
-        //     })
-        // })
-
-
-        
     }
 
     getShips() {
         let a = []
-
         this.ships.forEach(ship => {
             console.log(ship.location)
         })

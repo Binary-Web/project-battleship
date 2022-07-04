@@ -11,7 +11,6 @@ export default class Ship {
     }
 
     getPosition() {
-        
         //true for horizontal ----- false for vertical;
         return this.isHorizontal ? 'horizontal' : 'vertical';
     }
