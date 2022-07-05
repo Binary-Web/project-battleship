@@ -1,6 +1,5 @@
 import Ship from './Ship.js'
 
-
 export default function createShips() {
     const fiveShips = [];
     const ships = [

@@ -3,11 +3,9 @@ export default class Board {
         // create a board 10x10, coords board[row][col] / board[y][x];
         this.arrBoard = Array(10).fill(null).map(() => Array(10).fill(null));
     }
-
     allShipDeploy(ships) {
         ships.forEach(ship => this.randomPlace(ship))
     }
-
     randomPlace(ship) {
         const row = Math.floor(Math.random() * 10);
         const col = Math.floor(Math.random() * 10);
@@ -18,7 +16,6 @@ export default class Board {
         const deployed = this.deployShip(ship, row, col);
         if(!deployed) this.randomPlace(ship);
     }
-
     deployShip(ship, row, col) {
         const valid = this.isValid(ship.length, ship.isHorizontal, row, col);
         if(valid) {
@@ -33,7 +30,6 @@ export default class Board {
             return valid;
         }
     }
-
     isValid(length, isHorizontal, row, col) {
         const cells = [];
         for(let i = 0; i < length; i++) {
@@ -46,11 +42,9 @@ export default class Board {
                 return false;
             }
         }
-
         //check if coord is taken;
         return cells.every((cell) => cell === null)
     }
-
     adjustCoord(isHorizontal, row, col, i) {
         let y = row;
         let x = col;
